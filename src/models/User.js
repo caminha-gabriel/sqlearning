@@ -18,5 +18,4 @@ User.init({
   underscored: true,
 });
 
-
 module.exports = User;

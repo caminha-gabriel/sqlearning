@@ -28,4 +28,9 @@ Address.belongsTo(User, {
   as: 'user',
 });
 
+User.hasMany(Address, {
+  foreignKey: 'user_id',
+  as: 'addresses',
+});
+
 module.exports = Address;
