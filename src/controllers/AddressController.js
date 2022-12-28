@@ -9,6 +9,18 @@ module.exports = {
     return res.json(addresses);
   },
 
+  async getAllFromUser (req, res) {
+    const { userId } = req.params;
+
+    const userWithAddresses = await User.findByPk(userId, {
+      include: { association: 'addresses'}
+    });
+
+    if (!userWithAddresses) return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
+
+    return res.json(userWithAddresses.addresses);
+  },
+
   async store (req, res) {
     const { zipcode, street, number } = req.body;
     const { userId } = req.params;
