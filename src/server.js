@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { welcomeRoutes, usersRoutes, addressesRoutes } = require('./routes');
+const { welcomeRoutes, usersRoutes, addressesRoutes, techsRoutes } = require('./routes');
 
 const app = express();
 API_PORT = process.env.API_PORT || 3000;
@@ -11,6 +11,7 @@ const useRoutes = () => {
   app.use(welcomeRoutes);
   app.use(usersRoutes);
   app.use(addressesRoutes);
+  app.use(techsRoutes);
 }
 
 useRoutes();
