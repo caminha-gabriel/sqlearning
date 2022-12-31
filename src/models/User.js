@@ -15,7 +15,8 @@ User.init({
 }, {
   sequelize: connection,
   modelName: 'User',
-  underscored: true,
+  tableName: 'users',
+  underscored: true
 });
 
 module.exports = User;

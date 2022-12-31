@@ -20,7 +20,8 @@ Address.init({
 }, {
   sequelize: connection,
   modelName: 'Address',
-  underscored: true,
+  tableName: 'addresses',
+  underscored: true
 });
 
 Address.belongsTo(User, {
