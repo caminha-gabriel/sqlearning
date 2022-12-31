@@ -3,7 +3,7 @@ const express = require('express');
 const { welcomeRoutes, usersRoutes, addressesRoutes, techsRoutes } = require('./routes');
 
 const app = express();
-API_PORT = process.env.API_PORT || 3000;
+const API_PORT = process.env.API_PORT || 3000;
 
 app.use(express.json());
 
