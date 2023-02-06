@@ -1,10 +1,21 @@
 const User = require('../models/User');
+const { StatusCodes } = require('http-status-codes');
 
 module.exports = {
   async getAll (_req, res) {
     const users = await User.findAll();
 
     return res.json(users);
+  },
+
+  async getUser (req, res) {
+    const { userId } = req.params;
+
+    const user = await User.findByPk(userId);
+
+    if (!user) return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
+
+    return res.status(StatusCodes.OK).json(user)
   },
 
   async store (req, res) {
