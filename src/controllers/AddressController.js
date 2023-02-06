@@ -33,4 +33,21 @@ module.exports = {
 
     return res.json(address);
   },
+
+  async delete (req, res) {
+    const { zipcode } = req.body;
+    const { userId } = req.params;
+
+    const user = await User.findByPk(userId);
+
+    if (!user) return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
+
+    const address = await Address.findOne({
+      where: { user_id: userId, zipcode }
+    });
+    
+    await address.destroy();
+
+    return res.status(StatusCodes.NO_CONTENT).send();
+  },
 }
