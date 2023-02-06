@@ -12,6 +12,10 @@ module.exports = {
   async getAllFromUser (req, res) {
     const { userId } = req.params;
 
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
     const userWithAddresses = await User.findByPk(userId, {
       include: { association: 'addresses'}
     });
@@ -25,6 +29,14 @@ module.exports = {
     const { zipcode, street, number } = req.body;
     const { userId } = req.params;
 
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
+    if (isNaN(zipcode) || isNaN(number) || !street) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid address info' });
+    }
+
     const user = await User.findByPk(userId);
 
     if (!user) return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
@@ -37,6 +49,14 @@ module.exports = {
   async delete (req, res) {
     const { zipcode } = req.body;
     const { userId } = req.params;
+
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
+    if (isNaN(zipcode)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid zipcode' });
+    }
 
     const user = await User.findByPk(userId);
 

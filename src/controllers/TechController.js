@@ -12,6 +12,10 @@ module.exports = {
   async getAllFromUser (req, res) {
     const { userId } = req.params;
 
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
     const userWithTechs = await User.findByPk(userId, {
       include: { association: 'techs', through: { attributes: [] } }
     });
@@ -24,6 +28,14 @@ module.exports = {
   async store (req, res) {
     const { name } = req.body;
     const { userId } = req.params;
+
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
+    if (!isNaN(name)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid name' });
+    }
 
     const user = await User.findByPk(userId);
 
@@ -41,6 +53,14 @@ module.exports = {
   async delete (req, res) {
     const { name } = req.body;
     const { userId } = req.params;
+
+    if (isNaN(userId)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'User Id should be a number' });
+    }
+
+    if (!isNaN(name)) {
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid name' });
+    }
 
     const user = await User.findByPk(userId);
 
